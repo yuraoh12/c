@@ -1,67 +1,75 @@
-#include<stdio.h>
+#define _CRT_SECURE_NO_WARNINGS
 
-int  factorial(int n) {
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
 
-    if (n == 1) {
-        return 1;
-    }
+//접근 지정자 : public, protected, private
 
-    return n * factorial(n - 1);
+class Animal {
+	/*public:*/ //누구든 접근 가능
+	/*protected:*/  //외부에서 접근 불가능 대신 내부에서는 접근 가능 (상속받은 클래스는 접근 가능)
+private: // 해당 클래스 내에서만 접근 가능 (상속받은 클래스도 접근 불가)
+	int legs;
+	char name[50];
+public:
+	Animal(int legs, const char* name) {
+		printf("동물생성자 실행됨\n");
+		this->legs = legs;
+		strcpy(this->name, name);
+	}
 
-}
+	void printInfo() {
+		printf("다리의 갯수 : %d\n", legs);
+		printf("이름 : %s\n", name);
+	}
+};
 
-/*
-5 * factorial(5-1) :  = 120
-4 * factorial(4-1)
-3 * factorial(3-1)
-2 * factorial(2-1)
-return 1
+class Dog : public Animal {
+public:
+	Dog() : Animal(4, "개") {
+		printf("Dog 생성자 실행됨\n");
+	}
+};
 
-- 즉, 실행이 되면서 바로 계산이 되는 것이 아니라 조건이 참이 되서 재귀함수를 끝내고 1을 반환 할 때,
-- 그 값을 가지고 올라가면서 계산을 한다.
-*/
+class Person : public Animal {
+public:
+	char regist_no[30];
+
+	Person(const char* regist_no) : Animal(2, "사람") {
+		printf("사람생성자 실행됨\n");
+		strcpy(this->regist_no, regist_no);
+		//legs = 2;
+		//strcpy(name, "사람");
+	}
+
+	void printLegs() {
+		printf("Person의 다리 : %d\n", this->legs);
+	}
+};
 
 int main() {
 
-    int num;
+	Animal* animal;
 
-    printf("숫자를 입력해 주세요 >> ");
-    scanf_s("%d", &num);
+	Person* person = new Person("1234-9999");
 
-    printf("%d! = %d", num, factorial(num));
+	printf("person->legs : %d\n", person->legs);
 
-    13!이상은 계산이 불가능하다.
+	//person->printInfo();
 
-        long long factorial(int n) {
+	//Dog* dog = new Dog();
+	//dog->printInfo();
 
-        if (n == 1) {
-            return 1;
-        }
+	//animal = person;
 
-        return n * factorial(n - 1);
+	//person = (Person*)dog;
 
-    }
+	//person = (Person*)animal;
 
-    /*
-    factorial(5) : 5 * 24  = 120
-    factorial(5) : 4 * 6
-    factorial(5) : 3 * 2
-    factorial(5) : 2 * 1
-    factorial(5) : return 1
-    */
-
-    int main() {
-
-        long long num;
-
-        printf("숫자를 입력해 주세요 >> ");
-        scanf_s("%lld", &num);
-
-        printf("%lld! = %lld", num, factorial(num));
+	/*person = (Person*)dog;
+	person->printInfo();*/
 
 
-        /*
-        13! = 1932053504
-        13! = 6,227,020,800
-        -2,147,483,648 ~ 2,147,483,647
-        */
+	return 0;
+}
