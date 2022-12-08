@@ -1,6 +1,6 @@
 #include<stdio.h>
 void dataPrint(int[][6], int);
-void dataPrint(int *val[6], int); 
+void pointerPrint(int *val[6], int); 
 
 main() {
 	int score[][6] = { {1,90,80,90},
