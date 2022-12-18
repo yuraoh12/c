@@ -1,0 +1,33 @@
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+int main() {
+
+	// 형변환
+	// 주소에는 타입이 있고
+	// malloc은 주소를 리턴 -> int*??? char*??? long*??? -> 타입이 없는 포인터를 리턴 : 보이드 포인터 // void* 
+	// void* 절대로 그냥 사용 X
+	// 우리는 그 주소를 char, int, long 등 다양한 타입으로 활용
+	// 그래서 void* 형 포인터는 형변환해서 사용해야 한다.
+	
+	int *pa = (int*)malloc(sizeof(12)); // malloc은 12바이트 공간을 가리키는 타입 없는 주소값(void*) 리턴. 12바이트를 어떻게 사용할지는 void* 를 어떻게 변환하는지에 따라 달라진다.
+
+	// value에 다양한 유형의 값을 넣고 싶으면 void*로 지정하고 관련 value들을 모두 동적할당해서 사용하면 된다.
+  // 동적할당을 해야하는 이유는 데이터를 주소로 저장해야 하므로
+	map<string, void*> p1 = {
+		make_pair("나이", new int(20)),
+		make_pair("몸무게", new int(70)),
+		make_pair("이름", new string("홍길동")),
+	};
+
+  // 맵에서 value를 가져올 때는 형이 void* 이기 때문에 반드시 형변환해서 가져온다.
+	int* a = (int*)p1["나이"];
+	string* s = (string*)p1["이름"];
+
+	cout << *s << endl;
+
+
+	return 0;
+}
