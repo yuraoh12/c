@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+// terms_len은 배열 terms의 길이입니다.
+// privacies_len은 배열 privacies의 길이입니다.
+// 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
+int* solution(const char* today, const char* terms[], size_t terms_len, const char* privacies[], size_t privacies_len) {
+    int *tile=(int*)malloc(sizeof(int)*26);
+    int *answer = (int*)calloc(privacies_len,sizeof(int));
+    char *day=today;
+    day[4]=day[5];
+    day[5]=day[6];
+    day[6]=day[8];
+    day[7]=day[9];
+    day[8]=0;
+    int intday =atoi(day);
+    int intdday;
+    int a;
+    int c=0;
+    char **dday=privacies;
+    // return 값은 malloc 등 동적 할당을 사용해주세요. 할당 길이는 상황에 맞게 변경해주세요.
+    for(int i=0;i<terms_len;i++){
+        tile[*(terms[i])-65]=atoi((terms[i]+2));
+    }
+    for(int i=0;i<privacies_len;i++){
+        dday[i][4]=dday[i][5];
+        dday[i][5]=dday[i][6];
+        dday[i][6]=dday[i][8];
+        dday[i][7]=dday[i][9];
+        dday[i][8]=0;
+        intdday=atoi(dday[i]);
+        a=intdday/100%100+tile[dday[i][11]-65];
+        if(intday>=(a%12?intdday+a/12*10000+(a%12-intdday/100%100)*100
+                    :intdday+(a/12-1)*10000+(12-intdday/100%100)*100)){
+            answer[c]=i+1;
+            c++;
+        }
+    }
+    return answer;
+}
