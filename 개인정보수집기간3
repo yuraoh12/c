@@ -1,0 +1,43 @@
+#include <stdbool.h>
+#include <stdlib.h>
+
+// terms_len은 배열 terms의 길이입니다.
+// privacies_len은 배열 privacies의 길이입니다.
+// 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
+int* solution(const char* today, const char* terms[], size_t terms_len, const char* privacies[], size_t privacies_len) {
+    // return 값은 malloc 등 동적 할당을 사용해주세요. 할당 길이는 상황에 맞게 변경해주세요.
+    int* answer = (int*)malloc(sizeof(int));
+    int len = 1;
+    int nterms[26] = {0};
+
+    int ntoday = (today[2] - 48) * 10 + (today[3] - 48);
+    ntoday = (ntoday * 12) + (today[5] - 48) * 10 + (today[6] - 48);
+    ntoday = (ntoday * 28) + (today[8] - 48) * 10 + (today[9] - 48);
+
+    for(int i = 0; i < (int)terms_len; i++){
+        int temp = 0;
+        int j = 2;
+        int ten = 1;
+        while(terms[i][j]){
+            temp *= ten;
+            temp += terms[i][j] - 48;
+            ten = 10;
+            j++;
+        }
+        nterms[terms[i][0] - 65] = temp * 28;
+    }
+
+    for(int i = 0; i < (int)privacies_len; i++){
+        int nprivacies = (privacies[i][2] - 48) * 10 + (privacies[i][3] - 48);
+        nprivacies = (nprivacies * 12) + (privacies[i][5] - 48) * 10 + (privacies[i][6] - 48);
+        nprivacies = (nprivacies * 28) + (privacies[i][8] - 48) * 10 + (privacies[i][9] - 48);
+        nprivacies += nterms[privacies[i][11] - 65];
+        if(nprivacies < ntoday + 1){
+            answer = (int*)realloc(answer, sizeof(int) * len);
+            answer[len - 1] = i + 1;
+            len++;
+        }
+    }
+
+    return answer;
+}
