@@ -1,0 +1,73 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+using namespace std;
+
+int main() {
+
+	int menu = 0;
+	int inputMoney = 0;
+	int remainder = 0;
+	int target = -1;
+
+	string beverages[3] = { "콜라", "사이다", "커피" };
+	/*int cola = 1000;
+	int cider = 1200;
+	int coffee = 800;*/
+
+	int prices[3] = {1000 , 1200, 800};
+
+	while (true) {
+		cout << "기능 선택 (1. 돈 투입,  2. 음료 선택,  3. 사용 종료) : " << endl;
+		cin >> menu;
+
+		if (menu == 1) {
+			// ========================================= 돈 투입 기능 
+			cout << "돈을 투입해주세요 : " << endl;
+			cin >> inputMoney;
+
+			remainder += inputMoney;
+
+			cout << "현재 투입된 금액은 " << remainder << "원입니다." << endl;
+
+			cout << "기능 선택 (1. 돈 투입,  2. 음료 선택,  3. 사용 종료) : " << endl;
+			// =========================================
+		}
+		else if (menu == 2) {
+			// ========================================= 음료 선택 기능
+
+			cout << "== 음료수 목록 ==" << endl;
+			cout << " 0.콜라 : 1000원 " << endl;
+			cout << " 1.사이다 : 1200원 " << endl;
+			cout << " 2.커피 : 800원 " << endl;
+
+			cout << "음료수를 선택해주세요 : ";
+			cin >> target;
+
+			// 여기서 음료수 뽑기 전에 잔액과 비교하고 잔액이 음료수의 가격보다 크면 뽑아주고, 아니면 잔액이 부족합니다 출력.
+			if (remainder < prices[target]) {
+				cout << "잔액이 부족합니다." << endl;
+			}
+			else {
+				cout << beverages[target] << " 를 뽑으셨습니다." << endl;	
+
+				// 잔액 => 원래 잔액 - 음료수 가격
+				
+				cout << "잔액은 " << remainder - prices[target] << " 원입니다." << endl;
+				remainder = remainder - prices[target];
+			}
+
+			// =========================================
+		}
+		else if (menu == 3) {
+			cout << "자판기 프로그램을 종료합니다. 남은 돈 300원이 반환됩니다." << endl;
+			break;
+		}
+	}
+
+	
+
+
+
+	return 0;
+}
