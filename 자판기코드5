@@ -1,0 +1,105 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+using namespace std;
+
+struct Beverage {
+	string name;
+	int price;
+};
+
+
+// 객체의 틀(설계도)
+// 절차 -> 구조 -> 객체
+// 데이터 = 상태, 함수 = 동작
+class VendingMachine {
+public:
+
+	struct Beverage beverages[3];
+
+	// 생성자(constructor)
+	VendingMachine(struct Beverage b4, struct Beverage b5, struct Beverage b6) {
+
+		this->beverages[0] = b4;
+		this->beverages[1] = b5;
+		this->beverages[2] = b6;
+	}
+
+
+	int inputMoney(int remainder) {
+
+		int inputMoney = 0;
+
+		// ========================================= 돈 투입 기능 
+		cout << "돈을 투입해주세요 : " << endl;
+		cin >> inputMoney;
+
+		remainder += inputMoney;
+
+		cout << "현재 투입된 금액은 " << remainder << "원입니다." << endl;
+
+		return remainder;
+		// =========================================
+	}
+
+	void printBeverages() {
+
+		cout << "== 음료수 목록 ==" << endl;
+		for (int i = 0; i < 3; ++i) {
+			cout << i << ". " << beverages[i].name << " : " << beverages[i].price << "원 " << endl;
+		}
+	}
+
+
+	int select(int remainder) {
+
+		int target = -1;
+
+		printBeverages();
+
+		cout << "음료수를 선택해주세요 : ";
+		cin >> target;
+
+		// 여기서 음료수 뽑기 전에 잔액과 비교하고 잔액이 음료수의 가격보다 크면 뽑아주고, 아니면 잔액이 부족합니다 출력.
+		if (remainder < beverages[target].price) {
+			cout << "잔액이 부족합니다." << endl;
+		}
+		else {
+			cout << beverages[target].name << " 를 뽑으셨습니다." << endl;
+
+			// 잔액 => 원래 잔액 - 음료수 가격
+
+			cout << "잔액은 " << remainder - beverages[target].price << " 원입니다." << endl;
+			remainder = remainder - beverages[target].price;
+		}
+
+		return remainder;
+
+		// =========================================
+	}
+};
+
+int main() {
+
+
+	// 소유한 음료수 목록
+	struct Beverage b1 = { "쥬스", 1200 };
+	struct Beverage b2 = { "포카리", 1500 };
+	struct Beverage b3 = { "솔의눈", 900 };
+	struct Beverage b4 = { "콜라", 900 };
+	struct Beverage b5 = { "사이다", 900 };
+	struct Beverage b6 = { "커피", 900 };
+
+	// 3대의 자판기를 만들고 각각 음료수 채워넣기(생성자 이용)
+	VendingMachine v1{ b1, b2, b3};
+	VendingMachine v2{ b1, b4, b6};
+	VendingMachine v3 {b6, b3, b2};
+
+	// 3대의 자판기를 각각 실행
+	v1.printBeverages(); 
+	v2.printBeverages();
+	v3.printBeverages();
+
+
+	return 0;
+}
