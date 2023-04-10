@@ -1,0 +1,44 @@
+// 문제 : 사람의 나이를 저장해주세요.
+
+// 입출력예시
+/*
+
+사람의 숫자를 입력해주세요. : 2[엔터]
+
+1번째 사람의 나이를 입력해주세요 : 33[엔터]
+2번째 사람의 나이를 입력해주세요 : 50[엔터]
+1번째 사람의 나이 : 33
+2번째 사람의 나이 : 50
+*/
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+int main(void) {
+
+  int count;
+  
+  printf("사람의 숫자를 입력해주세요. : ");
+  scanf("%d", &count);
+  
+  //int ages[sizeof(int) * count]; // 나이 저장소
+  //char names[20 * count]; // 이름 저장소
+
+  int* ages = (int*)malloc(sizeof(int) * count); // 나이 저장소
+  char* names = (char*)malloc(sizeof(char) * 20 * count); // 이름 저장소
+  char* homes = (char*)malloc(sizeof(char) * 30 * count); // 주소 저장소
+  
+  for(int i = 0; i < count; i++) {
+    printf("%d번째 사람의 나이를 입력해주세요 : ", i + 1);
+    scanf("%d", ages + i);
+    printf("%d번째 사람의 이름을 입력해주세요 : ", i + 1);
+    scanf("%s", names + (i * 20));
+    printf("%d번째 사람의 주소를 입력해주세요 : ", i + 1);
+    scanf("%s", homes + (i * 30));
+  }
+
+  for(int i = 0; i < count; i++) {
+    printf("%d번째 사람의 나이, 이름, 주소 : %d, %s, %s\n", i + 1, *(ages + i), names + (i * 20), homes + (i * 30));
+  }
+
+  
+  return 0;
+}
