@@ -1,0 +1,91 @@
+#include <stdio.h>
+
+int main()
+{
+	// 포인터 역시 변수이다. 
+	// 변수의 위치를 가리키고 그 가리킨 값이 똑같이 메모리에 저장 되는 형태이다.
+
+	// 변수 선언 : 공간을 만들기 
+	// int b;
+	// 변수에 값 할당 : 공간에 값 넣기
+	// b = 50;
+	// 초기화 : 만들면서 값 할당
+	// int h = 100;
+
+	/* 1.
+	int a = 20;
+
+	// 포인터 선언 방법
+	// 포인터가 가리키는 변수의 자료형을 기재
+	// *
+	// 포인터의 이름(변수명)
+	int* ptr;
+	ptr = &a; // & : 주소값
+
+	printf("%d\n", ptr); // -1471154844
+
+	printf("a의 값 : %d\n", a);
+	printf("a의 주소값 : %d\n", &a);
+	printf("ptr의 값 : %d\n", ptr);
+	printf("ptr이 가리키고 있는 변수의 값 : %d\n", *ptr); // a와 같은 값을 가리킨다.
+	// 선언부 외에 호출을 할 때 *을 표시 한다면 포인터 변수가
+	//  가리키고 있는 실제 값이 무엇인지 알 수 있다. 
+	*/
+
+	/* 2.
+	// 포인터가 가리키는 변수를 바꿔보기
+	int a = 20;
+	int b = 10;
+
+	int* ptr;
+
+	ptr = &a;
+	printf("ptr이 가리키는 변수에 저장된 값 : %d\n", *ptr);
+
+	ptr = &b;
+	printf("ptr이 가리키는 변수에 저장된 값 : %d\n", *ptr);
+	*/
+
+	/* 3.
+	int a = 10;
+	int* ptr = &a;
+	printf("a의 값 : %d\n", a);
+
+	*ptr = 20; // ptr이 가리키는 "값"을 20으로 재할당.
+	printf("a의 값 : %d\n", a);
+
+	*/
+
+
+	/*4. 
+	// 포인터를 가리키는 포인터
+
+	int a = 10;
+
+	int* ptr = &a;
+
+	int** ptr_ptr;
+	ptr_ptr = &ptr;
+
+	printf("a = %d\n", a);
+	printf("&a = %d\n", &a);
+
+	printf("ptr = %d\n", ptr);
+	printf("&ptr = %d\n", &ptr);
+
+	printf("ptr_ptr = %d\n", ptr_ptr);
+	/*
+	결과
+	a = 10
+	&a = -667944796
+	ptr = -667944796
+	&ptr = -667944760
+	ptr_ptr = -667944760
+	*/
+
+	printf("*ptr_ptr = %d\n", *ptr_ptr);
+
+	printf("**ptr_ptr = %d\n", **ptr_ptr);
+
+    */
+}
